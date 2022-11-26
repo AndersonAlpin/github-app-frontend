@@ -1,0 +1,45 @@
+img {
+  max-width: 100%;
+  width: auto;
+}
+
+#repositories {
+  margin-top: 20px;
+}
+
+#user-info {
+  max-width: 350px;
+  margin: 0 auto;
+  border: 1px solid #575656;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.repositoy-info {
+  padding: 15px 0;
+  border-top: 1px solid #575656;
+  color: #adabab;
+
+  &:last-child {
+    border-bottom: 1px solid #575656;
+  }
+
+  a {
+    text-decoration: none;
+    color: #58A6FF;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  span {
+    font-size: 0.9rem;
+    border: 1px solid #575656;
+    border-radius: 6px;
+    margin-left: 10px;
+    padding: 2px 5px;
+  }
+
+  div {
+    margin: 3px 0;
+  }
+}

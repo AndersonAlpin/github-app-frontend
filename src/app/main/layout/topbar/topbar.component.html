@@ -1,0 +1,14 @@
+<div id="topbar" class="flex align-items-center justify-content-between px-5">
+  <a class="logo" class="cursor-pointer" (click)="navigateToHome()">
+    <img alt="Nymeria" style="max-height: 35px;" src="assets/images/png/github.png" >
+  </a>
+  <div>
+    <div>
+      <button id="button-profile" type="button" pButton icon="pi pi-fw pi-angle-down" iconPos="right" label="Anderson Alpin" class="p-button-text p-button-plain p-button-sm" 
+        (click)="menu.toggle($event)">
+        <img src="assets/images/png/github.png" style="max-width: 30px;" class="mr-2">
+      </button>
+      <p-menu #menu [popup]="true" [model]="items"></p-menu>
+    </div>
+  </div>
+</div>

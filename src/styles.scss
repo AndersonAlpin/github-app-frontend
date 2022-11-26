@@ -1,0 +1,22 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #ffffff;
+
+  --gray: #24292e;
+  --gray-dark: #161b22;
+  --gray-light: #586069;
+
+  --primary: #0366d6;
+  --primary-light: #58a6ff;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--gray);
+  min-width: 250px;
+}
