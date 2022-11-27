@@ -2,7 +2,6 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  border: 1px solid #575656;
   border-radius: 6px;
 }
 
@@ -31,16 +30,6 @@
     margin-bottom: 5px;
     border-radius: 50%;
   }
-
-  // span {
-  //   font-weight: 600;
-  //   font-size: 0.8rem;
-  // }
-
-  // span + span {
-  //   font-weight: 400;
-  //   font-size: 0.7rem;
-  // }
 }
 
 #container:has(.box:hover) .box:not(:hover) {
@@ -56,14 +45,6 @@
     img {
       max-width: 80px;
     }
-
-    // span {
-    //   font-size: 0.7rem;
-    // }
-
-    // span + span {
-    //   font-size: 0.6rem;
-    // }
   }
 
   #container {

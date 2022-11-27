@@ -2,13 +2,15 @@ import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+const ramdomColor = require('randomcolor');
+
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent implements OnInit {
-  param: string = "";
+  username: string = "";
   user: any;
   repos: any[] = [];
 
@@ -19,9 +21,8 @@ export class UserDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const data = localStorage.getItem('GITHUB_API_SESSION');
-    this.param = this.route.snapshot.paramMap.get('name') || '';
-    if (this.param && data) {
+    this.username = this.route.snapshot.paramMap.get('username') || '';
+    if (this.username) {
       this.getUser();
       this.getRepos();
     } else {
@@ -30,7 +31,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUser(this.param).subscribe({
+    this.userService.getUser(this.username).subscribe({
       next: (response) => {
         this.user = response.data;
       },
@@ -38,9 +39,15 @@ export class UserDetailsComponent implements OnInit {
   }
 
   getRepos() {
-    this.userService.getRepos(this.param).subscribe({
+    this.userService.getRepos(this.username).subscribe({
       next: (response) => {
-        this.repos = response.data;
+        this.repos = response.data.map((repo: any) => {
+          repo.color = ramdomColor({
+            luminosity: 'light',
+            seed: repo.language,
+          });
+          return repo;
+        });
       },
     });
   }

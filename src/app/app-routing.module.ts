@@ -1,3 +1,4 @@
+import { GithubAuthGuard } from './guards/github-auth.guard';
 import { UserDetailsComponent } from './main/dashboard/user/user-details/user-details.component';
 import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -9,9 +10,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: '', component: DashboardComponent,
+    canActivate: [GithubAuthGuard],
     children: [
       { path: '', component: UserListComponent },
-      { path: ':name', component: UserDetailsComponent }
+      { path: ':username', component: UserDetailsComponent }
     ]
   },
 ];

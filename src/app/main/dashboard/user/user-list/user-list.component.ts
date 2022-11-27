@@ -12,6 +12,7 @@ export class UserListComponent implements OnInit {
   user: any;
   page: number = 1;
   data: any[] = [];
+  loading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,13 +21,8 @@ export class UserListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const data = localStorage.getItem('GITHUB_API_SESSION');
-    this.user = data ? JSON.parse(data) : undefined;
-    if (this.user) {
-      this.getUsers();
-    } else {
-      this.router.navigate(['login']);
-    }
+    this.getUsers();
+    window.addEventListener('scroll', this.checkEndOfPage.bind(this));
   }
 
   navigateToUser(userName: string) {
@@ -34,10 +30,11 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers() {
-    this.userService.getUsers(this.user.token, this.page).subscribe({
+    this.userService.getUsers(this.page).subscribe({
       next: (response) => {
         if (response) {
           this.data = this.data.concat(response.data);
+          this.loading = false;
         } else {
           this.router.navigate(['login']);
         }
@@ -48,9 +45,12 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  nextPage() {
-    this.page++;
-    this.getUsers();
+  checkEndOfPage() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      this.loading = true;
+      this.page++;
+      this.getUsers();
+    }
   }
 
 }

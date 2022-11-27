@@ -14,12 +14,13 @@ import * as qs from 'query-string';
 })
 export class LoginComponent implements OnInit {
   formGroup: FormGroup;
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private alertService: AlertService,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {
     this.formGroup = this.fb.group({
       user: [undefined, Validators.required],
@@ -31,20 +32,24 @@ export class LoginComponent implements OnInit {
     const { code } = qs.parseUrl(window.location.href).query;
 
     if (code) {
-      this.loginService.getUserData(code.toString()).subscribe({
-        next: (response) => {
-          if (response) {
-            localStorage.setItem('GITHUB_API_SESSION', JSON.stringify(response));
-            this.router.navigate(['/']);
-          } else {
-            this.router.navigate(['/login']);
-          }
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      });
+      this.getUserData(code.toString());
     }
+  }
+
+  getUserData(code: string) {
+    this.loginService.getUserData(code).subscribe({
+      next: (response) => {
+        if (response) {
+          localStorage.setItem('GITHUB_API_SESSION', JSON.stringify(response));
+          this.router.navigate(['/']);
+        } else {
+          this.router.navigate(['/login']);
+        }
+      },
+      error: (error) => {
+        console.log(error.message);
+      }
+    });
   }
 
   login() {
@@ -52,6 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirectToGithubAuth() {
+    this.loading = true;
     const params = {
       response_type: 'code',
       scope: 'user public_repo',

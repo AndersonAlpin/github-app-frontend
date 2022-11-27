@@ -1,6 +1,6 @@
 import { environment } from 'src/environments/environment';
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,21 +10,26 @@ export class UserService {
 
   data = localStorage.getItem('GITHUB_API_SESSION');
   user = this.data ? JSON.parse(this.data) : undefined;
+  header = {
+    headers: new HttpHeaders().set(
+      'Authorization', this.user.token
+    )
+  }
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getUsers(token: string, page: number): Observable<any> {
-    return this.http.get(`${environment.BACKEND_URL}/user/${this.user.token}/${page}` );
+  getUsers(page: number): Observable<any> {
+    return this.http.get(`${environment.BACKEND_URL}/users?since=${page}`, this.header);
   }
 
-  getUser(name: string): Observable<any> {
-    return this.http.get(`${environment.BACKEND_URL}/user/detail/${name}/${this.user.token}` );
+  getUser(username: string): Observable<any> {
+    return this.http.get(`${environment.BACKEND_URL}/users/${username}/details`, this.header);
   }
 
-  getRepos(name: string): Observable<any> {
-    return this.http.get(`${environment.BACKEND_URL}/user/repos/${name}/${this.user.token}` );
+  getRepos(username: string): Observable<any> {
+    return this.http.get(`${environment.BACKEND_URL}/users/${username}/repos`, this.header);
   }
 
 }

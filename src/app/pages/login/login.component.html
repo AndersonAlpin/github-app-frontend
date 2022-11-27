@@ -19,7 +19,7 @@
         </div>
         <div class="col-12 flex justify-content-center">
           <div class="flex justify-content-around w-7">
-            <button type="button" pButton pTooltip="GitHub" tooltipPosition="top" icon="pi pi-github" 
+            <button type="button" pButton pTooltip="GitHub" tooltipPosition="top" [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-github'"
             class="p-button-secondary p-button-sm" (click)="redirectToGithubAuth()">
             </button>
             <button type="button" pButton pTooltip="Google" tooltipPosition="top" icon="pi pi-google" 

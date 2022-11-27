@@ -1,17 +1,13 @@
 <div id="container">
-  <h2 class="mb-2 text-white">Users</h2>
+  <h2 class="mb-2 ml-3 text-white">Users</h2>
   <div class="box-container">
     <ng-container *ngFor="let item of data">
       <div class="box" (click)="navigateToUser(item.login)">
         <img [src]="item.avatar_url">
-        <!-- <span>Anderson Alpin</span>
-        <span>Ubatã Ba</span> -->
       </div>
     </ng-container>
   </div>
-
-  <!-- button load more -->
-  <div class="text-center mt-3" *ngIf="data.length">
-    <button type="button" pButton label="Load more" (click)="nextPage()"></button>
+  <div *ngIf="loading" class="text-center">
+    <i class="pi pi-spin pi-spinner text-white" style="font-size: 1rem"></i>
   </div>
 </div>

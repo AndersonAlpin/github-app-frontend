@@ -11,19 +11,19 @@
         </div>
         <div class="mt-1 text-sm">
           <i class="pi pi-users mr-2"></i>
-          <span>{{user?.followers | number}} followers</span> - 
-          <span>{{user?.following | number}} following</span>
+          <span>{{user?.followers || 0 | number}} followers</span> - 
+          <span>{{user?.following || 0 | number}} following</span>
         </div>
-        <div id="user-info" class="mt-2 text-left">
-          <div class="my-1">
+        <div *ngIf="user?.company || user?.location || user?.email" id="user-info" class="mt-2 text-left">
+          <div *ngIf="user?.company" class="my-1">
             <i class="fa fa-building-o mr-2"></i>
-            <span>{{user?.company}}</span>
+            <span >{{user?.company}}</span>
           </div>
-          <div class="my-1">
+          <div *ngIf="user?.location" class="my-1">
             <i class="fa fa-map-marker mr-2"></i>
             <span>{{user?.location}}</span>
           </div>
-          <div class="my-1">
+          <div *ngIf="user?.email" class="my-1">
             <i class="fa fa-envelope-o mr-2"></i>
             <span>{{user?.email}}</span>
           </div>
@@ -36,10 +36,10 @@
     <div>
       <ng-container *ngFor="let item of repos">
         <div class="repositoy-info">
-          <a class="cursor-pointer">{{item?.name}}</a> <span>Public</span>
-          <div>{{item?.description}}</div>
-          <div class="flex align-items-center">
-            <div class="circle mr-2"></div>
+          <a class="cursor-pointer" [href]="item.html_url" target="_blank">{{item?.name}}</a> <span>Public</span>
+          <div *ngIf="item.description">{{item?.description}}</div>
+          <div *ngIf="item.language" class="flex align-items-center">
+            <div class="circle mr-2" [style.backgroundColor]="item?.color"></div>
             {{item?.language}}
           </div>
         </div>

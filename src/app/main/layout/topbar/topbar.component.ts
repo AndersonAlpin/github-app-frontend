@@ -24,10 +24,10 @@ export class TopbarComponent implements OnInit {
     this.items = [
       {
         items: [
-          {
-            label: 'Profile',
-            icon: 'pi pi-fw pi-user',
-          },
+          // {
+          //   label: 'Profile',
+          //   icon: 'pi pi-fw pi-user',
+          // },
           {
             label: 'Logout',
             icon: 'pi pi-sign-out',
