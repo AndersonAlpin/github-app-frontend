@@ -6,26 +6,26 @@
       </div>
       <div class="col-12 text-center text-white">
         <div>
-          <h2>Anderson Alpin</h2>
-          <h4>Full Stack Developer</h4>
+          <h2>{{user?.name}}</h2>
+          <h4>{{user?.bio}}</h4>
         </div>
         <div class="mt-1 text-sm">
           <i class="pi pi-users mr-2"></i>
-          <span>13 Followers</span>
-          <span>23 Following</span>
+          <span>{{user?.followers | number}} followers</span> - 
+          <span>{{user?.following | number}} following</span>
         </div>
         <div id="user-info" class="mt-2 text-left">
           <div class="my-1">
             <i class="fa fa-building-o mr-2"></i>
-            <span>Nimerya</span>
+            <span>{{user?.company}}</span>
           </div>
           <div class="my-1">
             <i class="fa fa-map-marker mr-2"></i>
-            <span>Ubatã, BA</span>
+            <span>{{user?.location}}</span>
           </div>
           <div class="my-1">
             <i class="fa fa-envelope-o mr-2"></i>
-            <span>anderson@gmail.com.br</span>
+            <span>{{user?.email}}</span>
           </div>
         </div>
       </div>
@@ -34,21 +34,16 @@
 
   <div id="repositories">
     <div>
-      <div class="repositoy-info">
-        <a class="cursor-pointer">Cursos</a> <span>Public</span>
-        <div>Meus cursos</div>
-        <div>Javascript</div>
-      </div>
-      <div class="repositoy-info">
-        <a href="">Cursos</a> <span>Public</span>
-        <div>Meus cursos</div>
-        <div>Javascript</div>
-      </div>
-      <div class="repositoy-info">
-        <a href="">Cursos</a> <span>Public</span>
-        <div>Meus cursos</div>
-        <div>Javascript</div>
-      </div>
+      <ng-container *ngFor="let item of repos">
+        <div class="repositoy-info">
+          <a class="cursor-pointer">{{item?.name}}</a> <span>Public</span>
+          <div>{{item?.description}}</div>
+          <div class="flex align-items-center">
+            <div class="circle mr-2"></div>
+            {{item?.language}}
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>

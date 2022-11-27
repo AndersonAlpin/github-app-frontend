@@ -1,9 +1,9 @@
-import { UserDetailsComponent } from './main/dashboard/user-details/user-details.component';
-import { UserListComponent } from './main/dashboard/user-list/user-list.component';
+import { UserDetailsComponent } from './main/dashboard/user/user-details/user-details.component';
 import { DashboardComponent } from './main/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserListComponent } from './main/dashboard/user/user-list/user-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '', component: DashboardComponent,
     children: [
       { path: '', component: UserListComponent },
-      { path: ':userName', component: UserDetailsComponent }
+      { path: ':name', component: UserDetailsComponent }
     ]
   },
 ];

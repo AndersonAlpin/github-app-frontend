@@ -12,12 +12,15 @@ export class TopbarComponent implements OnInit {
   @Output() onToggle = new EventEmitter();
 
   items: MenuItem[] = [];
+  user: any ;
 
   constructor(
     private router: Router,
   ) { }
 
   ngOnInit(): void {
+    const data = localStorage.getItem('GITHUB_API_SESSION');
+    this.user = data ? JSON.parse(data) : undefined;
     this.items = [
       {
         items: [
@@ -50,6 +53,7 @@ export class TopbarComponent implements OnInit {
   }
 
   logout() {
+    localStorage.removeItem('GITHUB_API_SESSION');
     const blacklist = ['/', '/login'];
     const returnUrl = this.router.url;
     this.router.navigate(['login'], {

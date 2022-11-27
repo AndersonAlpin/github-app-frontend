@@ -4,9 +4,9 @@
   </a>
   <div>
     <div>
-      <button id="button-profile" type="button" pButton icon="pi pi-fw pi-angle-down" iconPos="right" label="Anderson Alpin" class="p-button-text p-button-plain p-button-sm" 
+      <button id="button-profile" type="button" pButton icon="pi pi-fw pi-angle-down" iconPos="right" [label]="user?.name" class="p-button-text p-button-plain p-button-sm" 
         (click)="menu.toggle($event)">
-        <img src="assets/images/png/github.png" style="max-width: 30px;" class="mr-2">
+        <img [src]="user?.avatar_url" class="mr-2 image-profile">
       </button>
       <p-menu #menu [popup]="true" [model]="items"></p-menu>
     </div>

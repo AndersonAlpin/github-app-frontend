@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,9 +19,9 @@ import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MenuModule } from 'primeng/menu';
-import { UserListComponent } from './main/dashboard/user-list/user-list.component';
-import { UserDetailsComponent } from './main/dashboard/user-details/user-details.component';
+import { UserDetailsComponent } from './main/dashboard/user/user-details/user-details.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { UserListComponent } from './main/dashboard/user/user-list/user-list.component';
 
 
 @NgModule({
@@ -44,7 +45,9 @@ import { TooltipModule } from 'primeng/tooltip';
     MessageModule,
     ToastModule,
     MenuModule,
-    TooltipModule
+    TooltipModule,
+    HttpClientModule,
+    // StoreModule.forRoot(, {}),
   ],
   providers: [
     AlertService,

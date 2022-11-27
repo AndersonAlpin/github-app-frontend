@@ -1,7 +1,11 @@
+import { LoginService } from './login.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/utils/alert.service';
+import { environment } from 'src/environments/environment';
+
+import * as qs from 'query-string';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loginService: LoginService
   ) {
     this.formGroup = this.fb.group({
       user: [undefined, Validators.required],
@@ -22,7 +27,24 @@ export class LoginComponent implements OnInit {
     });
   }
 
-ngOnInit(): void {
+  ngOnInit(): void {
+    const { code } = qs.parseUrl(window.location.href).query;
+
+    if (code) {
+      this.loginService.getUserData(code.toString()).subscribe({
+        next: (response) => {
+          if (response) {
+            localStorage.setItem('GITHUB_API_SESSION', JSON.stringify(response));
+            this.router.navigate(['/']);
+          } else {
+            this.router.navigate(['/login']);
+          }
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    }
   }
 
   login() {
@@ -30,8 +52,15 @@ ngOnInit(): void {
   }
 
   redirectToGithubAuth() {
-    // this.router.navigate(['/']);
-    this.alertService.showSuccess('Login success');
+    const params = {
+      response_type: 'code',
+      scope: 'user public_repo',
+      client_id: environment.GITHUB_CLIENT_ID,
+      redirect_uri: environment.GITHUB_REDIRECT_URL
+    };
+
+    const url = `${environment.GITHUB_URL}/authorize?${qs.stringify(params)}`;
+    window.location.href = url;
   }
 
   redirectToGoogleAuth() {
