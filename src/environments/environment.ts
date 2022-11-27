@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  BACKEND_URL: 'http://localhost:3000',
+  BACKEND_URL: 'https://github-app-backend.herokuapp.com',
   GITHUB_URL: 'https://github.com/login/oauth',
-  GITHUB_CLIENT_ID: '',
-  GITHUB_REDIRECT_URL: ''
+  GITHUB_CLIENT_ID: '153a3c08727e4d33f410',
+  GITHUB_REDIRECT_URL: 'https://github-app-fronted.herokuapp.com/login'
 };
 
 /*
