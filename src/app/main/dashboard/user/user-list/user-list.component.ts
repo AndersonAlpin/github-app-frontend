@@ -22,7 +22,11 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     const data = localStorage.getItem('GITHUB_API_SESSION');
     this.user = data ? JSON.parse(data) : undefined;
-    this.getUsers();
+    if (this.user) {
+      this.getUsers();
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
   navigateToUser(userName: string) {
@@ -32,7 +36,14 @@ export class UserListComponent implements OnInit {
   getUsers() {
     this.userService.getUsers(this.user.token, this.page).subscribe({
       next: (response) => {
-        this.data = this.data.concat(response.data);
+        if (response) {
+          this.data = this.data.concat(response.data);
+        } else {
+          this.router.navigate(['login']);
+        }
+      },
+      error: (error) => {
+        this.router.navigate(['login']);
       }
     });
   }
