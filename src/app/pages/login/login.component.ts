@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
       response_type: 'code',
       scope: 'user public_repo',
       client_id: environment.GITHUB_CLIENT_ID,
-      // redirect_uri: environment.GITHUB_REDIRECT_URL
     };
 
     const url = `${environment.GITHUB_URL}/authorize?${qs.stringify(params)}`;
